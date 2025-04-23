@@ -75,26 +75,16 @@ function gameStateToAsciiBoardTo3dScene(state) {
   return {
     asciiBoard,
     sceneDescription3D: {
-      SceneDescription3D: {
-        camera,
-        objects,
-      },
+      camera,
+      objects,
     },
   };
 }
 
 //example usage
-const state = {
-  playerPosition: { x: 5, y: 5 },
-  cameraDirection: 0,
-  enemies: [
-    { x: 2, y: 2 },
-    { x: 8, y: 7 },
-  ],
-};
 
 //Convert game state to ASCII board and 3d scene description
-const stateToAsciiBoardTo3dScene = gameStateToAsciiBoardTo3dScene(state);
+// const stateToAsciiBoardTo3dScene = gameStateToAsciiBoardTo3dScene(state);
 
 //Convert ASCII board to text
 function asciiBoardToText(asciiBoard) {
@@ -118,5 +108,3 @@ function asciiBoardToText(asciiBoard) {
   }
   return text;
 }
-
-console.log(asciiBoardToText(result.asciiBoard));
