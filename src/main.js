@@ -25,6 +25,7 @@ const State = {
   enemies: [[0, 0, 0, 0]],
 };
 
+//Function to initialize the state for everything at the start of the game
 function initiateState() {
   for (let i = 0; i < mapLines.length; i++) {
     for (let j = 0; j < processedMap[i].length; j++) {
