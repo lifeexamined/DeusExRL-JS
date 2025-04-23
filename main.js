@@ -1,3 +1,4 @@
+// **INTRUCTIONS**
 // Write a js function, where
 
 // const fn = (state) => ({
@@ -91,8 +92,10 @@ const state = {
   ],
 };
 
-const result = gameStateToAsciiBoardTo3dScene(state);
+//Convert game state to ASCII board and 3d scene description
+const stateToAsciiBoardTo3dScene = gameStateToAsciiBoardTo3dScene(state);
 
+//Convert ASCII board to text
 function asciiBoardToText(asciiBoard) {
   var text = "";
 
