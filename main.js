@@ -42,9 +42,10 @@ function gameStateToAsciiBoardTo3dScene(state) {
   };
 
   //Place enemies on board
-  state.enemies.forEach((enemy) => {
+  for (var i = 0; i < state.enemies.length; i++) {
+    var enemy = state.enemies[i];
     asciiBoard[enemy.y][enemy.x] = { type: "enemy" };
-  });
+  }
 
   //Create 3d scene description based on the ASCII board
   const objects = [];
