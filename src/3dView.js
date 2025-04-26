@@ -10,6 +10,8 @@
 //   asciiBoardToText(gameStateToAsciiBoardTo3dScene(state002).sceneDescription3D)
 // );
 // console.log(asciiBoardToText(result.asciiBoard));
+
+//Function to add 3d view to the html file
 function add3DSceneToHTML(sceneDescription3D, containerId = "three-container") {
   // Create a container div if it doesn't exist
   let container = document.getElementById(containerId);

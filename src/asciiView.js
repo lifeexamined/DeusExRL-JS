@@ -1,27 +1,4 @@
-// **INTRUCTIONS**
-// Write a js function, where
-
-// const fn = (state) => ({
-// asciiBoard,
-// 3dSceneDescription
-// })
-
-// Where state is {
-// playerPosition: { x, y },
-// cameraDirection: 0 | 1 | 2 | 3 (90 degrees directions)
-// enemies: {x, y}[]
-// }
-
-// asciiBoard is {
-// type: "player" | "free" | "block" | "enemy"
-// }[][]
-
-// 3dSceneDescription is {
-//   camera,
-//   objects: [],
-
-// }
-
+//Function to convert game state to ASCII board and then to 3d scene description
 function gameStateToAsciiBoardTo3dScene(state) {
   //Creating ASCII board
   const asciiBoard = [];
@@ -80,11 +57,6 @@ function gameStateToAsciiBoardTo3dScene(state) {
     },
   };
 }
-
-//example usage
-
-//Convert game state to ASCII board and 3d scene description
-// const stateToAsciiBoardTo3dScene = gameStateToAsciiBoardTo3dScene(state);
 
 //Convert ASCII board to text
 function asciiBoardToText(asciiBoard) {
