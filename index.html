@@ -5,20 +5,22 @@
     <style>
       body {
         margin: 0;
-        overflow: hidden;
-      }
-      #three-container {
-        height: 100vh;
-        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     </style>
   </head>
   <body>
+    <div id="text-container"></div>
     <div id="three-container"></div>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
-    <script src="./src/state.js"></script>
-    <script src="./src/asciiView.js"></script>
-    <script src="./src/3dView.js"></script>
-    <script src="./src/initializeScriptsInHtml"></script>
+    <script src="src/view/utils.js"></script>
+    <script src="src/view/3d/map.js"></script>
+    <script src="src/view/3d/view.js"></script>
+    <script src="src/view/text/map.js"></script>
+    <script src="src/view/text/view.js"></script>
+    <script src="src/state.js"></script>
+    <script src="src/init.js"></script>
   </body>
 </html>
