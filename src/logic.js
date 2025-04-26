@@ -14,9 +14,9 @@ function movePlayer(direction, state) {
 
   // Update camera direction based on direction
   if (direction === "up") {
-    newState.cameraDirection = 0;
-  } else if (direction === "down") {
     newState.cameraDirection = 2;
+  } else if (direction === "down") {
+    newState.cameraDirection = 0;
   } else if (direction === "left") {
     newState.cameraDirection = 3;
   } else if (direction === "right") {

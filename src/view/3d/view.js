@@ -22,9 +22,9 @@ function render3dScene(sceneDescription3D, containerId = "three-container") {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xf0f0f0);
 
-  // Set up camera for top-down view
+  // Set up camera for first-person view
   const camera = new THREE.PerspectiveCamera(
-    60,
+    75, // Wider FOV for first-person
     container.clientWidth / container.clientHeight,
     0.1,
     1000
@@ -34,9 +34,29 @@ function render3dScene(sceneDescription3D, containerId = "three-container") {
   const boardSize = 10;
   const centerOffset = boardSize / 2 - 0.5;
 
-  // Position camera above the center of the board looking down
-  camera.position.set(centerOffset, 15, centerOffset);
-  camera.lookAt(centerOffset, 0, centerOffset);
+  // Get player position and direction from scene description
+  const playerObj = sceneDescription3D.objects.find(
+    (obj) => obj.type === "player"
+  );
+  if (!playerObj) {
+    console.error("No player found in scene description");
+    return;
+  }
+
+  // Calculate player position and direction
+  const playerX = playerObj.position.x;
+  const playerY = playerObj.position.y;
+  const playerHeight = 0.8; // Eye height
+  const directionDegrees = sceneDescription3D.camera.direction;
+  const directionRadians = THREE.MathUtils.degToRad(directionDegrees);
+
+  // Calculate look direction based on player's rotation
+  const lookX = playerX + Math.sin(directionRadians);
+  const lookZ = playerY + Math.cos(directionRadians);
+
+  // Position camera at player position with eye height
+  camera.position.set(playerX, playerHeight, playerY);
+  camera.lookAt(lookX, playerHeight, lookZ);
 
   // Create renderer
   const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -44,7 +64,7 @@ function render3dScene(sceneDescription3D, containerId = "three-container") {
   container.appendChild(renderer.domElement);
 
   // Add lights
-  const ambientLight = new THREE.AmbientLight(0x404040);
+  const ambientLight = new THREE.AmbientLight(0x606060); // Brighter ambient for first-person
   scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
@@ -68,18 +88,14 @@ function render3dScene(sceneDescription3D, containerId = "three-container") {
       return;
     }
 
+    // Skip rendering the player model in first-person mode
+    if (obj.type === "player") {
+      return;
+    }
+
     let geometry, material, mesh;
 
     switch (obj.type) {
-      case "player":
-        geometry = new THREE.ConeGeometry(0.5, 1, 4);
-        material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
-        mesh = new THREE.Mesh(geometry, material);
-        mesh.rotation.x = Math.PI / 2;
-        mesh.rotation.z = THREE.MathUtils.degToRad(
-          sceneDescription3D.camera.direction
-        );
-        break;
       case "enemy":
         geometry = new THREE.SphereGeometry(0.5);
         material = new THREE.MeshPhongMaterial({ color: 0xff0000 });
