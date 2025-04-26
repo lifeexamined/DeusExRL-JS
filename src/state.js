@@ -1,6 +1,7 @@
 //File to store the state of the game
 
 const state001 = {
+  level: "level1",
   playerPosition: { x: 5, y: 5 },
   cameraDirection: 0,
   enemies: [
@@ -10,6 +11,7 @@ const state001 = {
 };
 
 const state002 = {
+  level: "level1",
   playerPosition: { x: 2, y: 2 },
   cameraDirection: 3,
   enemies: [
@@ -19,6 +21,7 @@ const state002 = {
 };
 
 const state003 = {
+  level: "level1",
   playerPosition: { x: 3, y: 8 },
   cameraDirection: 0,
   enemies: [

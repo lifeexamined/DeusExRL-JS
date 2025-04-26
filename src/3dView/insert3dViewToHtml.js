@@ -11,7 +11,8 @@
 // );
 // console.log(asciiBoardToText(result.asciiBoard));
 
-//Function to add 3d view to the html file
+//Function to create a 3d scene with Three.js and add 3d view to the html file
+
 function add3DSceneToHTML(sceneDescription3D, containerId = "three-container") {
   // Create a container div if it doesn't exist
   let container = document.getElementById(containerId);
@@ -46,7 +47,9 @@ function add3DSceneToHTML(sceneDescription3D, containerId = "three-container") {
 
   // Position camera above the center of the board looking down
   camera.position.set(centerOffset, 15, centerOffset);
-  camera.lookAt(centerOffset, 0, centerOffset); // Look at the center of the board
+
+  // Look at the center of the board
+  camera.lookAt(centerOffset, 0, centerOffset);
 
   // Create renderer
   const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -62,7 +65,7 @@ function add3DSceneToHTML(sceneDescription3D, containerId = "three-container") {
   scene.add(directionalLight);
 
   // Add grid helper centered on the board
-  const gridHelper = new THREE.GridHelper(boardSize, boardSize);
+  const gridHelper = new THREE.GridHelper(levelWidth, levelLength);
   gridHelper.position.set(centerOffset, 0, centerOffset); // Center the grid
   scene.add(gridHelper);
 
@@ -132,7 +135,7 @@ function add3DSceneToHTML(sceneDescription3D, containerId = "three-container") {
   };
 }
 
-add3DSceneToHTML(gameStateToAsciiBoardTo3dScene(state003).sceneDescription3D);
+add3DSceneToHTML(gameStateToAsciiBoard(state003).sceneDescription3D);
 
 // Complete HTML example usage:
 /*
@@ -167,3 +170,49 @@ add3DSceneToHTML(gameStateToAsciiBoardTo3dScene(state003).sceneDescription3D);
 </body>
 </html>
 */
+
+// Function to initialize the 3D view based on ASCII board
+function initialize3DView(asciiBoard, cameraDirection = 0) {
+  // Create 3D scene description from ASCII board
+  const objects = [];
+  const boardSize = asciiBoard.length;
+
+  // Convert each cell on the board into a 3D object
+  for (let y = 0; y < boardSize; y++) {
+    for (let x = 0; x < boardSize; x++) {
+      const cell = asciiBoard[y][x];
+      if (cell.type !== "free") {
+        objects.push({
+          type: cell.type,
+          position: { x, y, z: 0 },
+        });
+      }
+    }
+  }
+
+  // Find player position for camera
+  let playerPosition = { x: 0, y: 0 };
+  for (let y = 0; y < boardSize; y++) {
+    for (let x = 0; x < boardSize; x++) {
+      if (asciiBoard[y][x].type === "player") {
+        playerPosition = { x, y };
+        break;
+      }
+    }
+  }
+
+  // Create scene description
+  const sceneDescription3D = {
+    camera: {
+      position: playerPosition,
+      direction: cameraDirection * 90, // 0, 90, 180, 270 degrees
+    },
+    objects,
+  };
+
+  // Add 3D scene to HTML
+  return add3DSceneToHTML(sceneDescription3D);
+}
+
+// Export the function for use in other files
+window.initialize3DView = initialize3DView;
