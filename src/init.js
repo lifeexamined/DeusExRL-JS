@@ -1,5 +1,5 @@
 function initialize() {
-  const currentState = state001;
+  const currentState = getCurrentState();
   const scene3D = mapStateTo3dScene(currentState);
   const asciiBoard = mapStateToAsciiBoard(currentState);
 

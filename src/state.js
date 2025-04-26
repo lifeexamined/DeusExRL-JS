@@ -26,3 +26,13 @@ const state003 = {
     { x: 5, y: 6 },
   ],
 };
+
+let currentState = state001;
+
+function getCurrentState() {
+  return currentState;
+}
+
+function setCurrentState(newState) {
+  currentState = newState;
+}
